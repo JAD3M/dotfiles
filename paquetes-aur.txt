@@ -1,0 +1,4 @@
+fnm-bin 1.39.0-1
+postman-bin 12.21.9-1
+sddm-sugar-candy-git 1.6r42.d31dbf5-1
+visual-studio-code-bin 1.131.0-1
