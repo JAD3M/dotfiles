@@ -1,0 +1,17 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a device; this may
+# be used with UUID= as a more robust way to name devices that works even if
+# disks are added and removed. See fstab(5).
+#
+# <file system>             <mount point>  <type>  <options>  <dump>  <pass>
+UUID=E219-B7F7                            /boot/efi      vfat    defaults,umask=0077 0 2
+UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /              btrfs   subvol=/@,defaults,noatime,compress=zstd:1 0 0
+UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /home          btrfs   subvol=/@home,defaults,noatime,compress=zstd:1 0 0
+UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /root          btrfs   subvol=/@root,defaults,noatime,compress=zstd:1 0 0
+UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /srv           btrfs   subvol=/@srv,defaults,noatime,compress=zstd:1 0 0
+UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /var/cache     btrfs   subvol=/@cache,defaults,noatime,compress=zstd:1 0 0
+UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /var/tmp       btrfs   subvol=/@tmp,defaults,noatime,compress=zstd:1 0 0
+UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /var/log       btrfs   subvol=/@log,defaults,noatime,compress=zstd:1 0 0
+tmpfs                                     /tmp           tmpfs   defaults,noatime,mode=1777 0 0
+UUID=1db509c4-4006-4204-96a3-e061d3392bbb  /home/yhael/Datos  ext4  defaults,noatime  0  2
