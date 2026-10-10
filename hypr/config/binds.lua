@@ -70,7 +70,7 @@ hl.bind(mainMod .. " + code:86", function() zoomfunction(0.3) end, { repeating =
 
 hl.bind(mainMod .. " + Return",     hl.dsp.exec_cmd(launchPrefix .. TERMINAL))
 hl.bind(mainMod .. " + E",          hl.dsp.exec_cmd(launchPrefix .. FILE_MANAGER))
-hl.bind(mainMod .. " + T",          hl.dsp.exec_cmd(launchPrefix .. EDITOR))
+hl.bind(mainMod .. " + T",          hl.dsp.exec_cmd(launchPrefix .. "flatpak run md.obsidian.Obsidian"))
 hl.bind(mainMod .. " + C",          hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
 hl.bind("XF86Calculator",           hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
 hl.bind(mainMod .. " + W",          hl.dsp.exec_cmd(launchPrefix .. BROWSER))
@@ -164,3 +164,7 @@ hl.bind(mainMod .. " + ALT + N", hl.dsp.exec_cmd([[hyprctl eval 'hl.monitor({ ou
 
 -- Ambas pantallas
 hl.bind(mainMod .. " + ALT + B", hl.dsp.exec_cmd([[hyprctl eval 'hl.monitor({ output = "desc:Initio Corporation KJW27FIX 0x00000001", mode = "1920x1080@180", position = "0x0", scale = "1.5", disabled = false }) hl.monitor({ output = "desc:BOE 0x0C29 0x00000067", mode = "1920x1080@144", position = "0x720", scale = "1.5", disabled = false })']]))
+-- Modos de energía
+-- NOTA: modo-bateria y modo-normal viven en ~/.local/bin y no están en este repo.
+hl.bind(mainMod .. " + ALT + Q", hl.dsp.exec_cmd("/home/yhael/.local/bin/modo-bateria"))
+hl.bind(mainMod .. " + ALT + W", hl.dsp.exec_cmd("/home/yhael/.local/bin/modo-normal"))

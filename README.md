@@ -18,10 +18,10 @@ Configuración personal de mi sistema.
 | `qt6ct/` | `~/.config/qt6ct/` | Tema de aplicaciones Qt |
 | `uwsm/` | `~/.config/uwsm/` | Variables de entorno de la sesión |
 | `wireplumber/` | `~/.config/wireplumber/` | Audio y Bluetooth |
-| `scripts/` | `~/.local/bin/` | Scripts propios (alarma) |
-| `wallpapers/` | `~/Pictures/Wallpapers/` | Fondos de pantalla |
+| `scripts/` | `~/.local/bin/` | Scripts propios (alarma, modo-bateria, modo-normal, log-pstate) |
+| `wallpapers/` | `~/Imágenes/Wallpapers/` | Fondos de pantalla (no incluidos en el repo) |
 | `fish-config.fish` | `~/.config/fish/config.fish` | Configuración de fish |
-| `mangohud.conf` | `~/.config/MangoHud/MangoHud.conf` | Overlay de FPS |
+| `mangohud/mangohud.conf` | `~/.config/MangoHud/MangoHud.conf` | Overlay de FPS |
 
 ### Dentro de `hypr/`
 
@@ -64,14 +64,14 @@ cp -r wireplumber ~/.config/
 cp fish-config.fish ~/.config/fish/config.fish
 
 mkdir -p ~/.config/MangoHud
-cp mangohud.conf ~/.config/MangoHud/MangoHud.conf
+cp mangohud/mangohud.conf ~/.config/MangoHud/MangoHud.conf
 
 mkdir -p ~/.local/bin
 cp scripts/* ~/.local/bin/
 chmod +x ~/.local/bin/*
 
-mkdir -p ~/Pictures/Wallpapers
-cp wallpapers/* ~/Pictures/Wallpapers/
+mkdir -p ~/Imágenes/Wallpapers
+# Los fondos no están en el repo: copialos a mano a ~/Imágenes/Wallpapers/
 ```
 
 ### 3. Ajustar rutas absolutas

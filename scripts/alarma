@@ -1,0 +1,7 @@
+#!/bin/bash
+pactl set-sink-volume @DEFAULT_SINK@ 100%
+for i in {1..30}; do
+    paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
+    notify-send "⏰ ALARMA" "¡Despierta!"
+    sleep 1
+done

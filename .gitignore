@@ -1,0 +1,5 @@
+*.save
+*.bak*
+*.antes-*
+cursor.conf
+.atl/

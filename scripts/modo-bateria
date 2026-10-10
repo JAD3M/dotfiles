@@ -1,0 +1,8 @@
+#!/bin/bash
+echo low-power | sudo tee /sys/firmware/acpi/platform_profile > /dev/null
+hyprctl eval 'hl.config({ decoration = { blur = { enabled = false }, active_opacity = 1.0, inactive_opacity = 1.0 }, animations = { enabled = false } })'
+hyprctl eval 'hl.monitor({ output = "desc:Initio Corporation KJW27FIX 0x00000001", mode = "1920x1080@60", position = "0x0", scale = "1.5" })'
+hyprctl eval 'hl.monitor({ output = "desc:BOE 0x0C29 0x00000067", mode = "1920x1080@60", position = "0x720", scale = "1.5" })'
+brightnessctl set 40%
+brightnessctl --device='*kbd_backlight' set 0
+notify-send "Modo batería"
