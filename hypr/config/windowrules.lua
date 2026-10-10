@@ -59,7 +59,7 @@ hl.window_rule({
         class = "^(org\\.kde\\.dolphin)$",
         title = "negative:^(Moving.*|Create New.*|Extract.*|Compress.*|Copying.*|Progress.*|Configure.*|Properties.*|Choose\\sApplication.*)$",
     },
-    float = true,
+    float = false,
     size = { "max(monitor_w, monitor_h)*0.50", "min(monitor_w, monitor_h)*0.55" },
     move = {
         "max(20, min(cursor_x - (window_w*0.50), monitor_w - window_w + 20))", -- X axis clamping
@@ -114,3 +114,6 @@ hl.window_rule({
     },
     no_focus = true,
 })
+
+-- Noctalia "Panel de Inicio" (kitty window): float at 70% instead of tiling edge-to-edge (gaps_out only has top)
+hl.window_rule({ match = { class = "^(kitty)$", title = "^.*Panel de Inicio de Noctalia$" }, float = true, center = true, size = { "monitor_w*0.70", "monitor_h*0.70" } })

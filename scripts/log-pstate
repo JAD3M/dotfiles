@@ -1,0 +1,5 @@
+#!/bin/bash
+while true; do
+    echo "$(date +%H:%M:%S.%3N),$(nvidia-smi --query-gpu=pstate,clocks.gr,power.draw,utilization.gpu --format=csv,noheader)"
+    sleep 0.2
+done

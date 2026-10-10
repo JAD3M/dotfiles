@@ -1,3 +1,6 @@
 fnm-bin 1.39.0-1
-postman-bin 12.25.7-1
-visual-studio-code-bin 1.135.0-1
+ngrok 3.39.11-1
+postman-bin 12.30.0-1
+python-pywalfox 2.9.0-1
+visual-studio-code-bin 1.139.1-1
+win2xcur 0.2.1-1

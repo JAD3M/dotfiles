@@ -6,3 +6,4 @@ source /usr/share/cachyos-fish-config/cachyos-config.fish
 #    # smth smth
 #end
 fnm env --use-on-cd | source
+set -Ux EDITOR nano

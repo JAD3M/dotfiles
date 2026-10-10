@@ -3,8 +3,8 @@
 hl.config({
     general = {
         gaps_in = 3,
-        gaps_out = 8,
-        border_size = 2,
+        gaps_out = { top = 8 },
+        border_size = 0,
         extend_border_grab_area = 10,
         resize_on_border = true,
         col = {
@@ -33,13 +33,14 @@ hl.config({
     },
     decoration = {
         dim_special = 0.3,
-        rounding = 10,
-        active_opacity = 0.95,
-        inactive_opacity = 0.85,
+        rounding = 2,
+        active_opacity = 1.0,
+        inactive_opacity = 1.0,
         fullscreen_opacity = 1,
         blur = {
+            enabled = true,
             size = 5,
-            passes = 4,
+            passes = 2,
             special = true,
         },
     },

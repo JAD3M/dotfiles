@@ -2,12 +2,12 @@
 
 TERMINAL     = "kitty"
 FILE_MANAGER = "dolphin"
-BROWSER      = "brave"
+BROWSER      = "firefox"
 EDITOR       = "gnome-text-editor --new-window"
 CALCULATOR   = "gnome-calculator"
 
 -- Monitors
-MONITOR1 = "eDP-1"
+MONITOR1 = "desc:BOE 0x0C29 0x00000067"
 MONITOR2 = "HDMI-A-1"
 MONITOR3 = ""
 PRIMARY_MONITOR = MONITOR1

@@ -2,26 +2,46 @@
 ui_scale = 1.20
 
 [bar.default]
-center = [ "workspaces", "spacer_1", "active_window" ]
-concave_edge_corners = true
-end = [ "media", "spacer_1", "tray", "notifications", "network", "volume", "session" ]
-margin_edge = 0
-margin_ends = 0
+start  = [ "custom_button", "workspaces", "group:g1" ]
+center = [ "weather", "clock" ]
+end    = [ "media", "spacer_1", "tray", "notifications", "network", "volume", "battery", "session" ]
+thickness = 35
+scale = 0.90
+margin_edge = 10
+margin_ends = 220
+concave_edge_corners = false
+radius_top_left = 12
+radius_top_right = 12
 radius_bottom_left = 12
 radius_bottom_right = 12
-radius_top_left = 0
-radius_top_right = 0
-scale = 1.10
-start = [ "launcher", "clock", "spacer_1", "group:g1" ]
-thickness = 35
+background_opacity = 1.0
+padding = 12
+widget_spacing = 12
+capsule_fill = "surface_variant"
+capsule_opacity = 1.0
 
     [[bar.default.capsule_group]]
-    border = ""
-    fill = "on_secondary"
     id = "g1"
     members = [ "temp", "sysmon_2", "sysmon_3" ]
+    fill = "surface_variant"
+    border = ""
     opacity = 1.0
     padding = 6.0
+
+[theme]
+mode = "dark"
+source = "community"
+community_palette = "Everforest"
+
+    [theme.templates]
+    enable_builtin_templates = true
+    builtin_ids = [ "btop", "gtk3", "gtk4", "kcolorscheme", "kitty", "qt", "alacritty" ]
+
+[weather]
+enabled = true
+
+[system.monitor]
+gpu_poll_seconds = 2
 
 [shell]
 clipboard_image_action_command = "satty -f -"
@@ -78,18 +98,44 @@ settings_show_advanced = true
     shortcut = "5"
     variant = "destructive"
 
-[system.monitor]
-gpu_poll_seconds = 2
+[widget.custom_button]
+type = "custom_button"
+glyph = "brand-archlinux-filled"
 
-[theme]
-mode = "dark"
-source = "wallpaper"
-wallpaper_scheme = "m3-tonal-spot"
+    [widget.custom_button.actions]
+    left = "panel-toggle launcher"
 
-    [theme.templates]
-    builtin_ids = [ "btop", "gtk3", "gtk4", "kcolorscheme", "kitty", "qt", "alacritty" ]
+[widget.workspaces]
+capsule = true
+capsule_fill = "surface"
+active_pill_size = 2.5
+inactive_pill_size = 1.0
+pill_scale = 0.80
+show_labels = false
+
+[widget.temp]
+type = "sysmon"
+stat = "cpu_temp"
+glyph = "temperature"
+show_value = true
+show_glyph = true
+
+[widget.sysmon_2]
+type = "sysmon"
+stat = "gpu_temp"
+glyph = "gpu-usage"
+show_value = false
+show_glyph = true
+
+[widget.sysmon_3]
+type = "sysmon"
+stat = "ram_used"
+glyph = "cpu-2"
+show_value = true
+show_glyph = true
 
 [widget.clock]
+anchor = true
 color = "secondary"
 format = "{:%I:%M %p %A %d/%m/%y}"
 
@@ -109,37 +155,12 @@ color = "secondary"
 [widget.session]
 color = "error"
 
-[widget.spacer_1]
-type = "spacer"
-
-[widget.temp]
-
-
-[widget.sysmon_2]
-glyph = "gpu-usage"
-show_value = false
-show_glyph = true
-stat = "gpu_temp"
-type = "sysmon"
-
-[widget.sysmon_3]
-glyph = "cpu-2"
-show_value = true
-show_glyph = true
-stat = "ram_used"
-type = "sysmon"
-
 [widget.tray]
 capsule = true
-capsule_fill = "on_secondary"
+capsule_fill = "surface_variant"
 
 [widget.volume]
 color = "secondary"
 
-[widget.workspaces]
-active_pill_size = 2.5
-capsule = true
-capsule_fill = "on_primary"
-show_labels = false
-inactive_pill_size = 1.0
-pill_scale = 0.80
+[widget.spacer_1]
+type = "spacer"

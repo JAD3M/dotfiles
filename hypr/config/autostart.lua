@@ -6,4 +6,14 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("noctalia")
     hl.exec_cmd("xhost +SI:localuser:root")
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
+    local f = io.open(os.getenv("HOME") .. "/.config/hypr/cursor.conf", "r")
+    if f then
+        local theme, size
+        for line in f:lines() do
+            theme = theme or line:match("^env%s*=%s*XCURSOR_THEME%s*,%s*(.-)%s*$")
+            size = size or line:match("^env%s*=%s*XCURSOR_SIZE%s*,%s*(%d+)")
+        end
+        f:close()
+        if theme then hl.exec_cmd("hyprctl setcursor " .. theme .. " " .. (size or "24")) end
+    end
 end)
