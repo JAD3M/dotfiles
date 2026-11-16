@@ -63,10 +63,10 @@ Configuración personal de mi sistema.
 
 ```bash
 # Repositorios oficiales
-sudo pacman -S --needed - < paquetes-explicitos.txt
+awk '{print $1}' paquetes-explicitos.txt | sudo pacman -S --needed -
 
 # AUR (revisar la lista antes, algunos pueden haber cambiado de nombre)
-paru -S --needed - < paquetes-aur.txt
+awk '{print $1}' paquetes-aur.txt | paru -S --needed -
 ```
 
 ### 2. Copiar la configuración
