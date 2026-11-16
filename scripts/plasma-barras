@@ -1,0 +1,33 @@
+#!/bin/bash
+# Keep Plasma panels identical on every monitor.
+#   plasma-barras clone   copy the panels of the first monitor to all the others (default)
+#   plasma-barras build   rebuild the top bar from the canonical definition on every monitor
+set -euo pipefail
+
+MODE="${1:-clone}"
+JS="$HOME/.local/share/plasma-barras/bar.js"
+run() { qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "var MODE = \"$1\";
+$(<"$JS")"; }
+
+# tell the KWin helper which launcher widget lives on which monitor (Meta+Space routing)
+write_map() {
+  local map
+  map=$(run map | rg -o 'MAP\|[^|]*\|END' | head -1 | sd '^MAP\|' '' | sd '\|END$' '')
+  kwriteconfig6 --file kwinrc --group Script-hyprnav --key launchers "$map"
+  echo "launchers: $map"
+}
+
+case "$MODE" in
+  clone) run attach; run clone; write_map ;;
+  build)
+    # free the shortcuts of the launcher widgets that are about to be replaced
+    for id in $(run ids | tr '|' '\n' | rg -o '^[0-9]+'); do
+      gdbus call --session --dest org.kde.kglobalaccel --object-path /kglobalaccel \
+        --method org.kde.KGlobalAccel.setShortcut \
+        "['plasmashell','activate widget $id','plasmashell','launcher']" "@ai []" 6 >/dev/null || true
+    done
+    run attach; run build; run clone; write_map ;;
+  map) write_map ;;
+  *) echo "usage: plasma-barras [clone|build]" >&2; exit 2 ;;
+esac
+echo

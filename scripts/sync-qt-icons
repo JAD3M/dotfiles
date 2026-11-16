@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Propagate the icon theme chosen in qt6ct to KDE apps (kdeglobals),
+# GTK apps (settings.ini + gsettings) and the Noctalia shell.
+set -euo pipefail
+
+theme=$(rg -r '$1' '^icon_theme=(.+)$' "$HOME/.config/qt6ct/qt6ct.conf" || true)
+[ -n "$theme" ] || exit 0
+
+# KDE apps
+if [ "$(kreadconfig6 --file kdeglobals --group Icons --key Theme)" != "$theme" ]; then
+  kwriteconfig6 --file kdeglobals --group Icons --key Theme "$theme"
+fi
+
+# GTK apps (ini files)
+for v in gtk-3.0 gtk-4.0; do
+  f="$HOME/.config/$v/settings.ini"
+  [ -f "$f" ] || continue
+  if [ "$(kreadconfig6 --file "$f" --group Settings --key gtk-icon-theme-name)" != "$theme" ]; then
+    kwriteconfig6 --file "$f" --group Settings --key gtk-icon-theme-name "$theme"
+  fi
+done
+
+# gsettings is what Noctalia reads; it only picks it up on startup.
+current=$(gsettings get org.gnome.desktop.interface icon-theme | tr -d "'")
+if [ "$current" != "$theme" ]; then
+  gsettings set org.gnome.desktop.interface icon-theme "$theme"
+  pkill -x noctalia || true
+  sleep 1
+  setsid -f uwsm app -- noctalia >/dev/null 2>&1
+fi

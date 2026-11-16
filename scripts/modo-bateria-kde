@@ -1,0 +1,7 @@
+#!/bin/bash
+echo low-power | sudo tee /sys/firmware/acpi/platform_profile > /dev/null
+kscreen-doctor output.HDMI-A-1.mode.1920x1080@60 output.eDP-1.mode.1920x1080@60
+brightnessctl set 40%
+brightnessctl --device='*kbd_backlight' set 0
+rfkill block bluetooth
+notify-send "Modo batería" "60 Hz · Brillo 40% · BT off"

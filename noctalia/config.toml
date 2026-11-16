@@ -6,7 +6,8 @@ start  = [ "custom_button", "workspaces", "group:g1" ]
 center = [ "weather", "clock" ]
 end    = [ "media", "spacer_1", "tray", "notifications", "network", "volume", "battery", "session" ]
 thickness = 35
-scale = 0.90
+content_scale = 0.75
+font_scale = 0.75
 margin_edge = 10
 margin_ends = 220
 concave_edge_corners = false
@@ -17,12 +18,12 @@ radius_bottom_right = 12
 background_opacity = 1.0
 padding = 12
 widget_spacing = 12
-capsule_fill = "surface_variant"
+capsule_fill = "surface_container"
 capsule_opacity = 1.0
 
     [[bar.default.capsule_group]]
     id = "g1"
-    members = [ "temp", "sysmon_2", "sysmon_3" ]
+    members = [ "sysmon_cpu", "temp", "sysmon_gpu", "sysmon_2", "sysmon_3" ]
     fill = "surface_variant"
     border = ""
     opacity = 1.0
@@ -53,7 +54,7 @@ settings_show_advanced = true
     auto_sync = true
 
     [shell.panel]
-    open_near_click_control_center = true
+    open_near_click_control_center = false
     session_placement = "floating"
     session_position = "center"
 
@@ -110,11 +111,28 @@ capsule = true
 capsule_fill = "surface"
 active_pill_size = 2.5
 inactive_pill_size = 1.0
-pill_scale = 0.80
+pill_scale = 0.75
 show_labels = false
+
+[widget.sysmon_cpu]
+type = "sysmon"
+scale = 0.7
+stat = "cpu_usage"
+glyph = "cpu-2"
+show_value = true
+show_glyph = true
+
+[widget.sysmon_gpu]
+type = "sysmon"
+scale = 0.7
+stat = "gpu_usage"
+glyph = "gpu-usage"
+show_value = true
+show_glyph = true
 
 [widget.temp]
 type = "sysmon"
+scale = 0.7
 stat = "cpu_temp"
 glyph = "temperature"
 show_value = true
@@ -122,15 +140,19 @@ show_glyph = true
 
 [widget.sysmon_2]
 type = "sysmon"
+scale = 0.7
 stat = "gpu_temp"
-glyph = "gpu-usage"
-show_value = false
+glyph = "temperature"
+show_value = true
 show_glyph = true
+
+[widget.ram]
+scale = 0.7
 
 [widget.sysmon_3]
 type = "sysmon"
-stat = "ram_used"
-glyph = "cpu-2"
+stat = "ram_pct"
+glyph = "chart-bar"
 show_value = true
 show_glyph = true
 
@@ -157,10 +179,22 @@ color = "error"
 
 [widget.tray]
 capsule = true
-capsule_fill = "surface_variant"
+capsule_fill = "surface_container"
 
 [widget.volume]
 color = "secondary"
 
 [widget.spacer_1]
 type = "spacer"
+
+[plugin_settings."noctalia/notes"]
+notes_dir = "~/Documentos/Notes"
+
+[plugin_settings."noctalia/screen_recorder"]
+directory = "~/Vídeos/Recordings"
+
+[plugin_settings."yugaaank/better-clock"]
+time_format = "{:%I:%M %p}"
+
+[plugin_settings."noctalia/mpvpaper"]
+video_directory = "~/Vídeos/Wallpapers"

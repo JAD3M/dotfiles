@@ -1,0 +1,43 @@
+#!/bin/bash
+# Prints one line: "<cpu%> <cpu_temp_C> <ram%> <gpu%> <gpu_temp_C>" (-1 when unavailable).
+# The NVIDIA dGPU is only queried when it is already awake, so polling never wakes it
+# (waking an Optimus dGPU costs battery).
+
+read -r _ u1 n1 s1 i1 w1 q1 sq1 st1 _ < /proc/stat
+sleep 0.4
+read -r _ u2 n2 s2 i2 w2 q2 sq2 st2 _ < /proc/stat
+idle=$(( (i2 + w2) - (i1 + w1) ))
+total=$(( (u2+n2+s2+i2+w2+q2+sq2+st2) - (u1+n1+s1+i1+w1+q1+sq1+st1) ))
+cpu=0; [ "$total" -gt 0 ] && cpu=$(( (100 * (total - idle)) / total ))
+
+cpu_t=-1
+for h in /sys/class/hwmon/hwmon*; do
+  case "$(cat "$h/name" 2>/dev/null)" in
+    coretemp|k10temp)
+      v=$(cat "$h/temp1_input" 2>/dev/null) && cpu_t=$(( v / 1000 )) && break ;;
+  esac
+done
+if [ "$cpu_t" -lt 0 ]; then
+  for z in /sys/class/thermal/thermal_zone*; do
+    [ "$(cat "$z/type" 2>/dev/null)" = "x86_pkg_temp" ] && cpu_t=$(( $(cat "$z/temp") / 1000 )) && break
+  done
+fi
+
+ram=$(awk '/MemTotal/{t=$2} /MemAvailable/{a=$2} END{printf "%d", (t-a)*100/t}' /proc/meminfo)
+
+gpu=-1; gpu_t=-1
+for d in /sys/class/drm/card*/device; do
+  if [ "$(cat "$d/vendor" 2>/dev/null)" = "0x10de" ]; then
+    if [ "$(cat "$d/power/runtime_status" 2>/dev/null)" = "active" ]; then
+      out=$(timeout 2 nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,noheader,nounits 2>/dev/null | head -1)
+      gpu=$(echo "$out" | cut -d, -f1 | tr -d ' ')
+      gpu_t=$(echo "$out" | cut -d, -f2 | tr -d ' ')
+      [ -z "$gpu" ] && gpu=-1; [ -z "$gpu_t" ] && gpu_t=-1
+    else
+      gpu=-2
+    fi
+    break
+  fi
+done
+
+echo "$cpu $cpu_t $ram $gpu $gpu_t"

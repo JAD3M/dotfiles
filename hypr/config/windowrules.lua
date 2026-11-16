@@ -14,13 +14,10 @@ hl.window_rule({
 
 -- Gaming
 local gamingApps = "^(steam_app.*|gamescope)$"
-local gamingWorkspace = "name:gaming"
 
-hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
-hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, fullscreen_state = 2, content = "game", sync_fullscreen = true })
-hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
+hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, fullscreen_state = 2, content = "game", sync_fullscreen = true })
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true })
-hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace })
+hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true })
 hl.window_rule({
     match = {
         class         = gamingApps,
@@ -29,6 +26,10 @@ hl.window_rule({
     },
     content          = "game",
     decorate         = false,
+    no_blur          = true,
+    no_shadow        = true,
+    no_anim          = true,
+    immediate        = true,
     fullscreen_state = 2,
     size             = { "monitor_w", "monitor_h" },
     sync_fullscreen  = true,
@@ -42,12 +43,11 @@ hl.window_rule({
     float            = true,
     fullscreen       = false,
     fullscreen_state = 0,
-    workspace        = gamingWorkspace,
 })
 
 -- Apps
 hl.window_rule({ match = { class = "^(.*\\.exe)$", float = true }, monitor = PRIMARY_MONITOR, center = true, fullscreen_state = 0 })
-hl.window_rule({ match = { class = "^(.*[Ll]auncher.*)$" }, float = true, monitor = PRIMARY_MONITOR })
+hl.window_rule({ match = { class = "^(.*[Ll]auncher.*)$", title = "negative:^(Faugus)$" }, float = true, monitor = PRIMARY_MONITOR })
 hl.window_rule({ match = { class = "^(vesktop|discord)$" }, monitor = PRIMARY_MONITOR })
 hl.window_rule({ match = { class = "^(.*[Cc]alc.*)$" }, float = true, size = { "max(monitor_w, monitor_h)*0.17", "min(monitor_w, monitor_h)*0.43" } })
 hl.window_rule({ match = { class = "^(org\\.kde\\.keditfiletype)$" }, float = true })
@@ -116,4 +116,4 @@ hl.window_rule({
 })
 
 -- Noctalia "Panel de Inicio" (kitty window): float at 70% instead of tiling edge-to-edge (gaps_out only has top)
-hl.window_rule({ match = { class = "^(kitty)$", title = "^.*Panel de Inicio de Noctalia$" }, float = true, center = true, size = { "monitor_w*0.70", "monitor_h*0.70" } })
+hl.window_rule({ match = { class = "^(kitty)$", initial_title = "^.*Panel de Inicio de Noctalia$" }, float = true, center = true, size = { "monitor_w*0.70", "monitor_h*0.70" } })

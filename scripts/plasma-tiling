@@ -1,0 +1,40 @@
+#!/bin/bash
+# Switch between normal KDE floating windows and Hyprland-style tiling.
+#   plasma-tiling off     floating windows (resize, overlap, maximize) - default KDE feel
+#   plasma-tiling on      Krohnkite BTree tiling, no title bars, gaps, auto-unmaximize
+#   plasma-tiling status
+# Kept in both modes: Meta+arrows focus across monitors, pointer follows focus,
+# Meta+Space launcher per monitor, per-monitor virtual desktops.
+set -euo pipefail
+
+KW=kwinrc
+reload() {
+  qdbus6 org.kde.KWin /KWin reconfigure
+  sleep 2
+  # scripts read their flags at load time: toggle hyprnav to apply them
+  kwriteconfig6 --file $KW --group Plugins --key hyprnavEnabled false
+  qdbus6 org.kde.KWin /KWin reconfigure
+  sleep 2
+  kwriteconfig6 --file $KW --group Plugins --key hyprnavEnabled true
+  qdbus6 org.kde.KWin /KWin reconfigure
+}
+
+case "${1:-status}" in
+  off)
+    kwriteconfig6 --file $KW --group Plugins --key krohnkiteEnabled false
+    kwriteconfig6 --file $KW --group Script-hyprnav --key tiling false
+    kwriteconfig6 --file $KW --group Script-hyprnav --key autoUnmaximize false
+    reload
+    echo "tiling OFF: normal floating windows" ;;
+  on)
+    kwriteconfig6 --file $KW --group Plugins --key krohnkiteEnabled true
+    kwriteconfig6 --file $KW --group Script-hyprnav --key tiling true
+    kwriteconfig6 --file $KW --group Script-hyprnav --key autoUnmaximize true
+    reload
+    echo "tiling ON: Krohnkite BTree" ;;
+  status)
+    echo "krohnkite : $(kreadconfig6 --file $KW --group Plugins --key krohnkiteEnabled)"
+    echo "tiling    : $(kreadconfig6 --file $KW --group Script-hyprnav --key tiling)"
+    echo "autounmax : $(kreadconfig6 --file $KW --group Script-hyprnav --key autoUnmaximize)" ;;
+  *) echo "usage: plasma-tiling [on|off|status]" >&2; exit 2 ;;
+esac

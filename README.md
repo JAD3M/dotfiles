@@ -3,7 +3,7 @@
 Configuración personal de mi sistema.
 
 **Equipo:** Lenovo LOQ 15IA9X · i5-12450HX · RTX 3050 6GB · 15.3 GB RAM
-**Sistema:** CachyOS (Arch) · dual boot con Windows 11
+**Sistema:** CachyOS (Arch) · Windows eliminado; disco Micron montado en `~/Juegos` para juegos
 **Escritorio:** Hyprland (configuración en **Lua**, no `.conf`) + Noctalia
 **Shell:** fish · **Terminal:** kitty · **Login:** SDDM con tema Sugar Candy
 
@@ -18,7 +18,7 @@ Configuración personal de mi sistema.
 | `qt6ct/` | `~/.config/qt6ct/` | Tema de aplicaciones Qt |
 | `uwsm/` | `~/.config/uwsm/` | Variables de entorno de la sesión |
 | `wireplumber/` | `~/.config/wireplumber/` | Audio y Bluetooth |
-| `scripts/` | `~/.local/bin/` | Scripts propios (alarma, modo-bateria, modo-normal, log-pstate) |
+| `scripts/` | `~/.local/bin/` | Scripts propios (ver abajo) |
 | `wallpapers/` | `~/Imágenes/Wallpapers/` | Fondos de pantalla (no incluidos en el repo) |
 | `fish-config.fish` | `~/.config/fish/config.fish` | Configuración de fish |
 | `mangohud/mangohud.conf` | `~/.config/MangoHud/MangoHud.conf` | Overlay de FPS |
@@ -38,6 +38,22 @@ Configuración personal de mi sistema.
 | `config/windowrules.lua` | Reglas de ventana |
 | `config/environment.lua` | **No se usa** — las variables van en `uwsm/env` |
 | `hyprlock.conf` | Pantalla de bloqueo |
+| `noctalia.lua` | Integración con Noctalia (colores/tema) |
+| `hyprland-settings.lua`, `hyprland-gui.lua` | Ajustes generados por hyprmod |
+| `config/plugins.lua` | Plugins de Hyprland |
+| `hyprmod/user_curves.json` | Curvas de animación personalizadas |
+| `scripts/xft-dpi-sync.sh` | Sincroniza Xft.dpi con el escalado |
+| `workspaces.lua` | Workspaces por monitor |
+
+### Scripts (`scripts/`)
+
+| Script | Qué hace |
+|---|---|
+| `alarma`, `log-pstate`, `sysstats` | Utilidades de sistema |
+| `modo-bateria`, `modo-normal` | Perfiles de energía (Hyprland) |
+| `modo-bateria-kde`, `modo-normal-kde`, `pantalla-*-kde`, `plasma-*` | Equivalentes para sesión KDE |
+| `screenshot`, `move-wallhaven`, `sync-qt-icons` | Capturas, wallpapers e iconos Qt |
+| `bedrock-launch`, `sober-launch` | Lanzadores de Minecraft Bedrock y Sober |
 
 ---
 
@@ -184,6 +200,11 @@ Workspaces: `Super + Alt + N` absolutos · `Super + Ctrl + N` del monitor actual
 
 ## Problemas conocidos
 
+- **Pantalla negra al cerrar la tapa / al conectar una TV** — hay un segfault de
+  aquamarine (Hyprland) al cambiar de monitores; abrir hyprmod justo después de
+  conectar la TV también lo provoca.
+- **Apps Flatpak/Electron sin GPU** — desajuste de versión de la extensión GL de
+  NVIDIA en Flatpak (ej. GeForce NOW sigue cayéndose).
 - **Bloqueo de Noctalia con escalado fraccionario** — se descuadra en multi-monitor
   con scale 1.5. Por eso uso hyprlock.
 - **qt6ct y la ruta con `$USER`** — Noctalia escribe `/home/$USER/...` sin expandir

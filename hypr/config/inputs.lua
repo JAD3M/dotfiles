@@ -3,6 +3,7 @@
 hl.config({
     input = {
         kb_layout = "latam",
+        numlock_by_default = true,
         sensitivity = -0.1,
         accel_profile = "flat",
         touchpad = {

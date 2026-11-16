@@ -1,6 +1,13 @@
+colloid-icon-theme 2026.08.10-1
 fnm-bin 1.39.0-1
-ngrok 3.39.11-1
-postman-bin 12.30.0-1
+hyprmod 0.4.0-3
+kwin-effect-rounded-corners-git 0.11.0.r0.g66d7ce9-1
+kwin-effects-geometry-change 1.5-1
+localsend-bin 1.18.2-2
+ngrok 3.39.13-1
+postman-bin 12.35.2-1
 python-pywalfox 2.9.0-1
-visual-studio-code-bin 1.139.1-1
+reversal-icon-theme-git r278.2c812228-1
+tela-icon-theme-git 2026.07.07.r2.ga1fffc5-1
+visual-studio-code-bin 1.144.0-1
 win2xcur 0.2.1-1

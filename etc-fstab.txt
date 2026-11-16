@@ -15,3 +15,4 @@ UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /var/tmp       btrfs   subvol=/@tmp,de
 UUID=bd7472b6-1672-4c96-aff7-91f2b3bbd848 /var/log       btrfs   subvol=/@log,defaults,noatime,compress=zstd:1 0 0
 tmpfs                                     /tmp           tmpfs   defaults,noatime,mode=1777 0 0
 UUID=1db509c4-4006-4204-96a3-e061d3392bbb  /home/yhael/Datos  ext4  defaults,noatime  0  2
+UUID=c126906f-8c7f-4f03-a7f8-e28a7b38e31a  /home/yhael/Juegos  btrfs  defaults,noatime,compress=zstd:1,nofail  0  0

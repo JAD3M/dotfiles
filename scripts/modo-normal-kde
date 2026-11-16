@@ -1,0 +1,6 @@
+#!/bin/bash
+echo balanced | sudo tee /sys/firmware/acpi/platform_profile > /dev/null
+kscreen-doctor output.HDMI-A-1.mode.1920x1080@180 output.eDP-1.mode.1920x1080@144
+brightnessctl set 80%
+rfkill unblock bluetooth
+notify-send "Modo normal" "Todo restaurado"

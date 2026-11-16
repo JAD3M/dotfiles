@@ -5,7 +5,11 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("dbus-update-activation-environment --systemd --all")
     hl.exec_cmd("noctalia")
     hl.exec_cmd("xhost +SI:localuser:root")
+    hl.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/xft-dpi-sync.sh")
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
+    -- Rebuild plugins if Hyprland was upgraded, load them, then reload the config
+    -- so plugin-guarded blocks (see plugins.lua) apply once the plugin exists.
+    hl.exec_cmd("sh -c 'hyprpm update -n; hyprpm reload -n; hyprctl reload'")
     local f = io.open(os.getenv("HOME") .. "/.config/hypr/cursor.conf", "r")
     if f then
         local theme, size

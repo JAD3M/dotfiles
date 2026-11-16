@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Screenshot without cursor (grim). Copies to the clipboard and shows a
+# notification with an "Edit" action that opens satty.
+# Usage: screenshot [region|screen]
+set -euo pipefail
+
+mode="${1:-region}"
+tmp="$(mktemp --suffix=.png)"
+trap 'rm -f "$tmp"' EXIT
+
+case "$mode" in
+    region)
+        geometry="$(slurp)" || exit 0
+        grim -g "$geometry" "$tmp"
+        ;;
+    screen)
+        output="$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')"
+        grim -o "$output" "$tmp"
+        ;;
+    *)
+        echo "usage: screenshot [region|screen]" >&2
+        exit 1
+        ;;
+esac
+
+wl-copy --type image/png < "$tmp"
+
+action="$(notify-send -a Screenshot -i "$tmp" -A edit=Edit \
+    "Screenshot copied" "Saved to the clipboard" || true)"
+
+if [ "$action" = "edit" ]; then
+    satty --filename "$tmp" --copy-command wl-copy --early-exit
+fi

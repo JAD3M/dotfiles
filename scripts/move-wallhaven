@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Move finished wallhaven downloads into the wallpapers folder.
+set -euo pipefail
+src="$HOME/Descargas"
+dest="$HOME/Imágenes/Wallpapers"
+mkdir -p "$dest"
+shopt -s nullglob
+for f in "$src"/wallhaven-*.{png,jpg,jpeg,webp}; do
+  mv -n -- "$f" "$dest/"
+done
