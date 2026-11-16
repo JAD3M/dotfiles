@@ -37,7 +37,7 @@ Configuración personal de mi sistema.
 | `config/animations.lua` | Animaciones |
 | `config/windowrules.lua` | Reglas de ventana |
 | `config/environment.lua` | **No se usa** — las variables van en `uwsm/env` |
-| `hyprlock.conf` | Pantalla de bloqueo |
+| `hyprlock.conf` | Sin uso (vacío); el bloqueo lo hace Noctalia |
 | `noctalia.lua` | Integración con Noctalia (colores/tema) |
 | `hyprland-settings.lua`, `hyprland-gui.lua` | Ajustes generados por hyprmod |
 | `config/plugins.lua` | Plugins de Hyprland |
@@ -95,7 +95,6 @@ mkdir -p ~/Imágenes/Wallpapers
 Estos archivos tienen mi nombre de usuario dentro. Cámbialo si es distinto:
 
 - `qt6ct/qt6ct.conf` → línea `color_scheme_path`
-- `hypr/hyprlock.conf` → ruta del fondo
 - `scripts/alarma` → rutas del script
 
 ### 4. Cerrar sesión y entrar como "Hyprland (uwsm-managed)"
@@ -186,7 +185,7 @@ Los paquetes globales de npm van a `~/.npm-global` para evitar errores EACCES.
 | `Super + Alt + Space` | Flotante ↔ tiling |
 | `Super + V` | Portapapeles |
 | `Super + S` | Scratchpad |
-| `Super + L` | Bloquear |
+| `Super + L` | Bloquear (bloqueo de sesión de Noctalia) |
 | `Super + Z` | Ajustes de Noctalia |
 | `Super + Alt + M` | Solo pantalla del portátil |
 | `Super + Alt + N` | Solo monitor externo |
@@ -205,8 +204,9 @@ Workspaces: `Super + Alt + N` absolutos · `Super + Ctrl + N` del monitor actual
   conectar la TV también lo provoca.
 - **Apps Flatpak/Electron sin GPU** — desajuste de versión de la extensión GL de
   NVIDIA en Flatpak (ej. GeForce NOW sigue cayéndose).
-- **Bloqueo de Noctalia con escalado fraccionario** — se descuadra en multi-monitor
-  con scale 1.5. Por eso uso hyprlock.
+- **Bloqueo de Noctalia con escalado fraccionario** — antes se descuadraba en
+  multi-monitor con scale 1.5 y por eso usaba hyprlock. Ahora uso el bloqueo de
+  Noctalia a propósito (`Super + L`, escala actual 1.25); `hyprlock.conf` quedó vacío.
 - **qt6ct y la ruta con `$USER`** — Noctalia escribe `/home/$USER/...` sin expandir
   en `qt6ct.conf`, y las apps Qt abren con texto ilegible. Hay que corregirlo a mano:
   ```bash
